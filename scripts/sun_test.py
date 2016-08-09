@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import ephem
 from datetime import datetime
 #calculate sundown
@@ -5,14 +6,22 @@ from datetime import datetime
 o=ephem.Observer()
 o.lat='50'
 o.long='4'
+o.date = datetime.now()
 s=ephem.Sun()
 s.compute()
-sundown = ephem.localtime(o.next_setting(s))
+sunset = ephem.localtime(o.previous_setting(s))
 sunrise = ephem.localtime(o.next_rising(s))
-print "sun down ", sundown
+print "sun down ", sunset
 print "sun up ",sunrise
+print "now ", datetime.now()
 
-if datetime.now() > sundown and datetime.now() < sunrise:
-    print "light goes on"
+
+if datetime.now() < sunset:
+    print "now < sundown"
 else:
-    print "ligt stays off"
+    print "sundown > now"
+
+if datetime.now() < sunrise:
+    print "now < sunrise"
+else:
+    print "sunsire > now"
