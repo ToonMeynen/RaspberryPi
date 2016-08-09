@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import pifacedigitalio, time, logging, ephem
 from datetime import datetime
 logging.basicConfig(filename='pir-sensor.log', level=logging.DEBUG, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
