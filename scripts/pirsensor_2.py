@@ -11,8 +11,8 @@ def switch_pressed(event):
     s.compute()
     sundown = ephem.localtime(o.next_setting(s))
     sunrise = ephem.localtime(o.next_rising(s))
-    logging.info("sun down", sundown)
-    logging.info("sun up", sunrise)
+    #logging.info("sun down", sundown)
+    #logging.info("sun up", sunrise)
 
 
     if datetime.now() > sundown and datetime.now() < sunrise:
