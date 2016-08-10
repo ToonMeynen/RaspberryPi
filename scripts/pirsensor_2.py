@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import pifacedigitalio, time, logging, ephem
 from datetime import datetime
-logging.basicConfig(filename='/var/log/pir-sensor.log', level=logging.DEBUG, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+logging.basicConfig(filename='/var/log/pir-sensor.log', level=logging.INFO, format='%(asctime)s %(level) %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 def switch_pressed(event):
     #calculate sunset and sunrise
@@ -10,13 +10,12 @@ def switch_pressed(event):
     o.long='4'
     s=ephem.Sun()
     s.compute()
-    sundown = ephem.localtime(o.next_setting(s))
+    sunset = ephem.localtime(o.next_setting(s))
     sunrise = ephem.localtime(o.next_rising(s))
-    #logging.info("sun down", sundown)
-    #logging.info("sun up", sunrise)
-
-
-    if datetime.now() > sundown and datetime.now() < sunrise:
+    logging.info("sunset ", '{:/%S/%M/%H/ %m/%d/%Y}'.format(sunset))
+    logging.info("sun down ", '{:/%S/%M/%H/ %m/%d/%Y}'.format(sunrise))
+    #logging.info("sun up", str(sunrise))
+    if datetime.now() >= sunset and datetime.now() <= sunrise:
         logging.info('light on')
         i = 0
         event.chip.output_pins[event.pin_num].turn_on()
