@@ -12,8 +12,8 @@ def switch_pressed(event):
     s.compute()
     sunset = ephem.localtime(o.next_setting(s))
     sunrise = ephem.localtime(o.next_rising(s))
-    logging.info("sunset ", '{:/%S/%M/%H/%m/%d/%Y}'.format(sunset))
-    logging.info("sun down ", '{:/%S/%M/%H/%m/%d/%Y}'.format(sunrise))
+    logging.info('{:%H:%M:%S - %m/%d/%Y}'.format(sunset))
+    logging.info('{:%H:%M:%S - %m/%d/%Y}'.format(sunrise))
     if datetime.now() >= sunset and datetime.now() <= sunrise:
         logging.info('light on')
         i = 0
