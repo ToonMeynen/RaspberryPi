@@ -11,10 +11,10 @@ s=ephem.Sun()
 s.compute()
 sunset = ephem.localtime(o.previous_setting(s))
 sunrise = ephem.localtime(o.next_rising(s))
-print "sun down ", sunset
-print "sun up ",sunrise
-print "now ", datetime.now()
-
+# print "sun down ", sunset
+# print "sun up ",sunrise
+# print "now ", datetime.now()
+print '{:%H:%M:%S - %m/%d/%Y}'.format(sunset)
 
 if datetime.now() < sunset:
     print "now < sundown"
