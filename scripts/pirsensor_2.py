@@ -10,7 +10,7 @@ def switch_pressed(event):
     o.long='4'
     s=ephem.Sun()
     s.compute()
-    sundown = ephem.localtime(o.previous_setting(s))
+    sundown = ephem.localtime(o.next_setting(s))
     sunrise = ephem.localtime(o.next_rising(s))
     #logging.info("sun down", sundown)
     #logging.info("sun up", sunrise)
