@@ -16,7 +16,7 @@ def switch_pressed(event):
     #logging.info("sun up", sunrise)
 
 
-    if datetime.now() > sundown:
+    if datetime.now() > sundown and datetime.now() < sunrise:
         logging.info('light on')
         i = 0
         event.chip.output_pins[event.pin_num].turn_on()
