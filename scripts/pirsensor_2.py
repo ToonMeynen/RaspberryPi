@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import pifacedigitalio, time, logging, ephem
 from datetime import datetime
-logging.basicConfig(filename='/var/log/pir-sensor.log', level=logging.INFO, format='%(asctime)s %(level) %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+logging.basicConfig(filename='/var/log/pir-sensor.log', level=logging.INFO, format='%(asctime)s %(level)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 def switch_pressed(event):
     #calculate sunset and sunrise
@@ -12,9 +12,8 @@ def switch_pressed(event):
     s.compute()
     sunset = ephem.localtime(o.next_setting(s))
     sunrise = ephem.localtime(o.next_rising(s))
-    logging.info("sunset ", '{:/%S/%M/%H/ %m/%d/%Y}'.format(sunset))
-    logging.info("sun down ", '{:/%S/%M/%H/ %m/%d/%Y}'.format(sunrise))
-    #logging.info("sun up", str(sunrise))
+    logging.info("sunset ", '{:/%S/%M/%H/%m/%d/%Y}'.format(sunset))
+    logging.info("sun down ", '{:/%S/%M/%H/%m/%d/%Y}'.format(sunrise))
     if datetime.now() >= sunset and datetime.now() <= sunrise:
         logging.info('light on')
         i = 0
