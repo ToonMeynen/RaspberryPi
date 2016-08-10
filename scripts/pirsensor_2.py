@@ -16,7 +16,7 @@ def switch_pressed(event):
     logging.info('next sunrise: {:%H:%M:%S - %m/%d/%Y}'.format(sunrise))
     if datetime.now() >= sunset and datetime.now() <= sunrise:
         logging.info('light on')
-        #Keep the light on when the sensor is active.
+        ##Keep the light on when the sensor is active.
         while pifacedigitalio.PiFaceDigital().IODIR_OFF:
             event.chip.output_pins[event.pin_num].turn_on()
             time.sleep(20)
