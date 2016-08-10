@@ -10,15 +10,16 @@ def switch_pressed(event):
     o.long='4'
     s=ephem.Sun()
     s.compute()
-    sunset = ephem.localtime(o.privious_setting(s))
+    sunset = ephem.localtime(o.previous_setting(s))
     sunrise = ephem.localtime(o.next_rising(s))
     logging.info('provious sunset: {:%H:%M:%S - %m/%d/%Y}'.format(sunset))
     logging.info('next sunrise: {:%H:%M:%S - %m/%d/%Y}'.format(sunrise))
     if datetime.now() >= sunset and datetime.now() <= sunrise:
         logging.info('light on')
-        i = 0
-        event.chip.output_pins[event.pin_num].turn_on()
-        time.sleep(20)
+        #Keep the light on when the sensor is active.
+        while pifacedigitalio.PiFaceDigital().IODIR_OFF:
+            event.chip.output_pins[event.pin_num].turn_on()
+            time.sleep(20)
         event.chip.output_pins[event.pin_num].turn_off()
     else:
         logging.info('light off: sun is still up')
