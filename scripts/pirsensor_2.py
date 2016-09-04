@@ -13,8 +13,8 @@ def switch_pressed(event):
     sunset = ephem.localtime(o.previous_setting(s))
     sunrise = ephem.localtime(o.next_rising(s))
     now = datetime.now()
-    logging.info('provious sunset: {:%H:%M:%S - %m/%d/%Y}'.format(sunset))
-    logging.info('next sunrise: {:%H:%M:%S - %m/%d/%Y}'.format(sunrise))
+    #logging.info('provious sunset: {:%H:%M:%S - %m/%d/%Y}'.format(sunset))
+    #logging.info('next sunrise: {:%H:%M:%S - %m/%d/%Y}'.format(sunrise))
 
     if datetime.now().strftime('%P') == 'am':
     #morning block
@@ -23,9 +23,10 @@ def switch_pressed(event):
             while True:
                 event.chip.output_pins[event.pin_num].turn_on()
                 time.sleep(10)
+                # If switch is not pressed. Exit loop and turn of light.
                 if not pifacedigitalio.PiFaceDigital().IODIR_OFF:
                     break
-            event.chip.output_pins[event.pin_num].turn_off()
+                event.chip.output_pins[event.pin_num].turn_off()
         else:
             logging.info("sun is up, light needs to stay off $now > $sunrise")
     else:
@@ -54,6 +55,6 @@ if __name__ == "__main__":
 
     listener = pifacedigitalio.InputEventListener(chip=pifacedigital)
     listener.register(0, pifacedigitalio.IODIR_ON, switch_unpressed)
-#    listener.register(0, pifacedigitalio.IODIR_OFF, print_state)
+    # listener.register(0, pifacedigitalio.IODIR_OFF, print_state)
     listener.register(0, pifacedigitalio.IODIR_OFF, switch_pressed)
     listener.activate()
