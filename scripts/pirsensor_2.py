@@ -13,6 +13,7 @@ def switch_pressed(event):
     sunset = ephem.localtime(o.previous_setting(s))
     sunrise = ephem.localtime(o.next_rising(s))
     now = datetime.now()
+
     #logging.info('provious sunset: {:%H:%M:%S - %m/%d/%Y}'.format(sunset))
     #logging.info('next sunrise: {:%H:%M:%S - %m/%d/%Y}'.format(sunrise))
 
@@ -20,26 +21,21 @@ def switch_pressed(event):
     #morning block
         if datetime.now() < sunrise:
             logging.info("sun is still down, light can go on. $now < $sunrise")
-            while True:
-                event.chip.output_pins[event.pin_num].turn_on()
-                time.sleep(10)
-                # If switch is not pressed. Exit loop and turn of light.
-                if not pifacedigitalio.PiFaceDigital().IODIR_OFF:
-                    break
-                event.chip.output_pins[event.pin_num].turn_off()
+            event.chip.output_pins[event.pin_num].turn_on()
+            time.sleep( 20 )
+            event.chip.output_pins[event.pin_num].turn_off()
         else:
             logging.info("sun is up, light needs to stay off $now > $sunrise")
     else:
     #evenning block
-        if datetime.now() < sunrise:
+        if datetime.now() < sunset:
+            logging.info('provious sunset: {:%H:%M:%S - %m/%d/%Y}'.format(sunset))
+            logging.info('next sunrise: {:%H:%M:%S - %m/%d/%Y}'.format(sunrise))
             logging.info( "sun is still up, light needs to stay off $now < $sunset")
         else:
             logging.info("sun is down, light can go on. $sunset > $now")
-            while True:
-                event.chip.output_pins[event.pin_num].turn_on()
-                time.sleep(10)
-                if not pifacedigitalio.PiFaceDigital().IODIR_OFF:
-                    break
+            event.chip.output_pins[event.pin_num].turn_on()
+            time.sleep( 20 )
             event.chip.output_pins[event.pin_num].turn_off()
 
 def switch_unpressed(event):
