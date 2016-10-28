@@ -14,10 +14,10 @@ def switch_pressed(event):
     sunrise = ephem.localtime(o.next_rising(s))
     now = datetime.now()
 
-    #logging.info('provious sunset: {:%H:%M:%S - %m/%d/%Y}'.format(sunset))
-    #logging.info('next sunrise: {:%H:%M:%S - %m/%d/%Y}'.format(sunrise))
+    logging.info('provious sunset: {:%H:%M:%S - %m/%d/%Y}'.format(sunset))
+    logging.info('next sunrise: {:%H:%M:%S - %m/%d/%Y}'.format(sunrise))
 
-    if datetime.now().strftime('%P') == 'am':
+    if datetime.now().strftime('%p') == 'AM':
     #morning block
         if datetime.now() < sunrise:
             logging.info("sun is still down, light can go on. $now < $sunrise")
