@@ -14,26 +14,26 @@ def switch_pressed(event):
     sunset = ephem.localtime(o.next_setting(s))
     now = datetime.now()
 
-    logging.info('provious sunset: {:%H:%M:%S - %m/%d/%Y}'.format(sunset))
-    logging.info('next sunrise: {:%H:%M:%S - %m/%d/%Y}'.format(sunrise))
+    logging.info('Sunrise: {:%H:%M:%S - %m/%d/%Y}'.format(sunrise))
+    logging.info('Sunset: {:%H:%M:%S - %m/%d/%Y}'.format(sunset))
 
     if datetime.now().strftime('%p') == 'AM':
     #morning block
         if datetime.now() < sunrise:
-            logging.info("sun is still down, light can go on. $now < $sunrise")
+            logging.info("Sun is still down, light can go on.")
             event.chip.output_pins[event.pin_num].turn_on()
             time.sleep( 20 )
             event.chip.output_pins[event.pin_num].turn_off()
         else:
-            logging.info("sun is up, light needs to stay off $now > $sunrise")
+            logging.info("Sun is up, light needs to stay off.")
     else:
     #evenning block
         if datetime.now() < sunset:
-            logging.info('provious sunset: {:%H:%M:%S - %m/%d/%Y}'.format(sunset))
-            logging.info('next sunrise: {:%H:%M:%S - %m/%d/%Y}'.format(sunrise))
-            logging.info( "sun is still up, light needs to stay off $now < $sunset")
+            logging.info('Sunrise: {:%H:%M:%S - %m/%d/%Y}'.format(sunrise))
+            logging.info('Sunset: {:%H:%M:%S - %m/%d/%Y}'.format(sunset))
+            logging.info( "Sun is still up, light needs to stay off.")
         else:
-            logging.info("sun is down, light can go on. $sunset > $now")
+            logging.info("Sun is down, light can go on.")
             event.chip.output_pins[event.pin_num].turn_on()
             time.sleep( 20 )
             event.chip.output_pins[event.pin_num].turn_off()
