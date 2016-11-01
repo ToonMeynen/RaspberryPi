@@ -11,7 +11,7 @@ def switch_pressed(event):
     s=ephem.Sun()
     s.compute()
     sunrise = ephem.localtime(o.previous_rising(s))
-    sunset = ephem.localtime(o.next_setting(s))
+    sunset = ephem.localtime(o.previous_setting(s))
     now = datetime.now()
 
     logging.info('Sunrise: {:%H:%M:%S - %m/%d/%Y}'.format(sunrise))
