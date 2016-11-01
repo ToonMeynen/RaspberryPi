@@ -1,3 +1,4 @@
+#print state op ports (high low)
 import pifacedigitalio
 pifacedigital = pifacedigitalio.PiFaceDigital()
 

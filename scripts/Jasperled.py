@@ -1,3 +1,4 @@
+#Talk to your raspberrypi using jasper.
 __author__ = 'Toon Meynen'
 import pifacedigitalio
 pfd = pifacedigitalio.PiFaceDigital() # creates a PiFace Digtal object
